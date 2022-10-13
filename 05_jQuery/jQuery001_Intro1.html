@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>jQuery Intro</title>
+</head>
+
+<script>
+function hideP(){
+	
+	for(e of document.getElementsByTagName("p")){
+		// e.addEventListener("click", function(){
+		// 	this.style.display = "none";
+		// });
+		e.addEventListener("click",hideElement);
+	}
+
+} // end hideP()
+
+function hideElement()
+{
+	this.style.display = "none";
+}
+
+// 함수나 변수 이름으로 $ 가능
+$ = 100;
+// alert($);
+
+$ = function(){
+	document.write('<p>hello</p>');
+}
+$();
+
+// 이름 없는 함수 정의하자마자 호출(단독으로 사용 못함)
+(function(){
+	document.write('<p>안녕하세요</p>');
+})();
+
+
+</script>
+
+<body onload="hideP();">
+
+<p>없어지는 마술을 보여줄께.</p>
+<p>요것도.</p>
+<p>따다~~!</p>
+
+</body>
+</html>

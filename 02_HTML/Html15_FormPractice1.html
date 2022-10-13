@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Form 만들기 과제</title>
+<style>
+	table {
+		width: 1000px; height: 150px;
+		border: 1px solid black;
+		border-top: 2px solid black;
+		border-collapse: collapse;
+	}
+	
+	th, tr, td {
+		text-align: left;
+		vertical-align: top;
+		padding: 10px;
+		border: none;
+	}
+	
+	.text1 {
+		width: 80px;
+    	height: 20px;
+	}
+
+	.addr {
+		width: 700px;
+    	height: 20px;
+	}
+
+	.tel {
+		height: 15px;
+		width: 80px;
+	}
+
+	.colored {
+		background-color: beige;
+	}
+
+	.colored1 {
+		background-color: #f6f6f6;
+	}
+
+	.hov:hover {
+		color: red; border: 1px solid red;
+	}
+
+</style>
+</script>
+</head>
+<!-- 
+	https://docs.google.com/presentation/d/1TTkjsf5v4PRErwmT2wXJ8VVM_L1pUglJbYSLLdEdQ-A/edit#slide=id.p
+	
+-->
+<body>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function change(){
+			let item = document.getElementById("selectEmail");
+			let itemValue = item.options[item.selectedIndex].value;
+			let temp = document.getElementById("str_email02");
+			
+			if(itemValue != 1) {
+				temp.value = itemValue;
+				temp.disabled = true;
+			}else {
+				temp.disabled = false;
+				temp.value = "";
+			}
+		}
+		
+		function zipSearch() {
+			daum.postcode.load(function(){
+				new daum.Postcode({
+					oncomplete: function(data) {
+						document.getElementById("zip").value = data.zonecode;
+						document.getElementById("addr1").value = data.roadAddress;
+					}
+				}).open();
+			});
+		}
+		/*
+		function zipSearch() {
+			new daum.Postcode({
+				oncomplete: function(data) {
+					$('[name=zip]').val(data.zonecode); // 우편번호 (5자리)
+					$('[name=addr1]').val(data.address);
+					$('[name=addr2]').val(data.buildingName);
+				}
+			}).open();
+		}
+		*/
+	</script>
+
+	<form>
+		<h4>주문자 정보 입력</h4>
+		<table class="colored1">
+			<tr>
+				<th>주문자정보</th>
+				<td>비회원으로 상품구매 시 반드시 본인인증을 하여야 합니다.
+					<input type="button" value="휴대폰인증">
+					<input type="button" value="아이핀인증">
+				</td>
+
+			</tr>
+			<tr>
+				<th rowspan="3">주소
+				</th>
+				<td>
+					<input type="text" name="zip" id="zip" class="text1" disabled>
+					&nbsp;
+					<input type="button" value="주소찾기" onclick="zipSearch()">
+				</td>
+			</tr>
+			<tr>
+				<td><input type="text" name="addr1" id="addr1" class="addr" disabled></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="addr2" id="addr2" class="addr"></td>
+			</tr>
+			<tr>
+				<th>휴대전화</th>
+				<td>
+					<select name="tel1" style="width: 60px;">
+						<option value="010" selected> 010
+						<option value="011"> 011
+						<option value="012"> 012
+						<option value="070"> 070
+					</select>
+
+					&nbsp;-&nbsp;
+					<input type="text" name="tel2" id="tel2" class="tel">
+					
+					&nbsp;-&nbsp;
+					<input type="text" name="tel3" id="tel2" class="tel">
+					
+					<input type="checkbox" name="SMS" id="SMS" checked>SMS수신동의
+				</td>
+			</tr>
+			<tr>
+				<th>이메일</th>
+				<td>
+					<input type="text" name="str_email01" id="str_email01" style="width:100px"> @
+					<input type="text" name="str_email02" id="str_email02" style="width:100px;">
+					<select style="width:100px;margin-right:10px" name="selectEmail" id="selectEmail" onchange="change()">
+						<option value="1" selected>직접입력</option>
+						<option value="naver.com">naver.com</option>
+						<option value="hanmail.net">hanmail.net</option>
+						<option value="hotmail.com">hotmail.com</option>
+						<option value="nate.com">nate.com</option>
+						<option value="yahoo.co.kr">yahoo.co.kr</option>
+						<option value="empas.com">empas.com</option>
+						<option value="dreamwiz.com">dreamwiz.com</option>
+						<option value="freechal.com">freechal.com</option>
+						<option value="lycos.co.kr">lycos.co.kr</option>
+						<option value="korea.com">korea.com</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="hanmir.com">hanmir.com</option>
+						<option value="paran.com">paran.com</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+
+		<h4>배송지 정보 입력</h4>
+		<table class="colored1">
+			<tr class="colored">
+				<th>배송지선택</th>
+				<td>
+					<input type="button" value="주문자 정보와 동일">
+				</td>
+			</tr>
+			<tr>
+				<th>받으시는분</th>
+				<td>
+					<input type="text" name="name" id="name" class="text1">
+				</td>
+			</tr>
+			<tr>
+				<th rowspan="3">주소
+				</th>
+				<td>
+					<input type="text" name="address" id="address1" class="text1" disabled>
+					&nbsp;
+					<input type="button" value="주소찾기" onclick="zipSearch()">
+					&nbsp;
+					<input type="checkbox" name="addAddress" id="addAddress">배송지목록에 추가
+				</td>
+			</tr>
+			<tr >
+				<td><input type="text" name="address" id="address2" class="addr" disabled></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="address" id="address3" class="addr"></td>
+			</tr>
+			<tr>
+				<th>휴대전화</th>
+				<td>
+					<select name="tel1" style="width: 60px;">
+						<option value="010" selected> 010
+						<option value="011"> 011
+						<option value="012"> 012
+						<option value="070"> 070
+					</select>
+
+					&nbsp;-&nbsp;
+					<input type="text" name="tel2" id="tel2" class="tel">
+					
+					&nbsp;-&nbsp;
+					<input type="text" name="tel3" id="tel2" class="tel">
+					
+					<input type="checkbox" name="SMS" id="SMS" checked>안심번호 사용(무료)
+					<input type="button" value="?" style="font-size: 12px;">
+					<input type="checkbox" name="homeNum" id="homeNum">집전화 추가 입력
+				</td>
+			</tr>
+			<tr>
+				<th>배송시요구사항</th>
+				<td style="font-size: 13px;">
+					<input type="text" name="req" id="req" class="addr">&nbsp(0자/50자)
+					<div style="font-size: 10px; color:blue;">*특정한 배송일을 지정하고자 할 경우 판매자와 연락하여 배송일을 확인해주시기 바랍니다.</div>
+				</td>
+			</tr>
+		</table>
+		
+		<h4>결제 정보 입력</h4>
+		<table>
+			<tr class="colored">
+				<th>신용카드</th>
+				<td>
+					<input type="radio" name="pay" id="card1" checked><span style="font-weight: bold;">신용카드(일반)</span>
+					<input type="radio" name="pay" id="card2">신용카드(법인)
+					<input type="radio" name="pay" id="card3">해외발급카드
+				</td>
+			</tr>
+			<tr class="colored">
+				<th>현금결제</th>
+				<td>
+					<input type="radio" name="pay" id="cash1">무통장입금&emsp;&ensp;
+					<input type="radio" name="pay" id="cash2">실시간계좌이체
+				</td>
+			</tr>
+			<tr>
+				<th>카드선택</th>
+				<td>
+					<select name="selCard" style="width: 150px;">
+						<option value="0" selected> 선택하세요
+						<option value="1"> 하나카드
+						<option value="2"> BC카드
+						<option value="3"> 신한카드
+						<option value="4"> 버스카드
+						<option value="5"> 출입카드
+						<option value="6"> 생일카드
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>할부방식</th>
+				<td>
+					<select name="selPay" style="width: 150px;">
+						<option value="0" selected> 일시불
+						<option value="1"> 2개월
+						<option value="2"> 4개월
+						<option value="3"> 6개월
+						<option value="4"> 12개월
+						<option value="5"> 24개월
+						<option value="6"> 48개월
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<th>결제안내</th>
+				<td>
+					<input type="button" value="간편결제안내" class="hov">
+					<input type="button" value="공인인증안내" class="hov">
+					<input type="button" value="안전결제안내" class="hov">
+					<input type="button" value="안심클릭안내" class="hov">
+					<input type="button" value="해외발급카드안내" class="hov">
+				</td>
+			</tr>
+		</table>
+		
+	</form>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

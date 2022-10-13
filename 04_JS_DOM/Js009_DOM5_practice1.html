@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>DOM - 연습</title>
+<style>
+table {width: 500px;}
+table, th, td{
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px;
+	font-size: 1.2em;
+}
+th {width: 50%;}
+th, td {
+	padding: 10px;
+}
+td{
+	background-color: orange;
+}
+
+#table1 div, #table1 input{
+	width: 100%;
+	font-size: 1.2em;
+	padding: 2px;
+	margin: 0;
+}
+
+/* TODO : input 에 대한 기본 style */
+#table1 input {
+	border: none;
+	display: none;	/* 기본적으로 안보이기 */
+}
+
+</style>
+</head>
+
+<body>
+<div>
+<table id="table1">
+	<tr>
+		<th>이름</th>
+		<th>아이디</th>
+	</tr>
+	<tr>
+		<td>
+			<div>홍길동</div>
+			<input type="text">
+		</td>
+		<td>
+			<div>Mr.Hong</div>
+			<input type="text">
+		</td>
+	</tr>
+</table>
+</div>
+
+<script>
+// 위 HTML 에 어떠한 inline js 코드도 삽입하지 않고 이 안에서 페이지의 모든 동작을 정의해보자
+
+for(e of document.querySelectorAll("#table1 div")) {
+	e.addEventListener("click", function() {
+		let txt = this.innerHTML.trim();
+		this.style.display = 'none';
+		let input = this.parentNode.getElementsByTagName("input")[0];
+		input.style.display = "block";
+		input.value = txt;
+		input.focus();
+	})
+}
+
+function switchInput(e){
+	let txt = e.value.trim();
+	e.style.display = 'none';
+	let div = e.parentNode.getElementsByTagName('div')[0];
+	div.style.display = 'block';
+	div.innerHTML = txt;
+}
+
+for(e of document.querySelectorAll("#table1 input")) {
+	e.addEventListener("focusout", function(){
+		switchInput(this);
+	});
+
+	e.addEventListener("keyup", function(event){ // 키보드 enter키(13번) 을 눌렀을때 발생하는 이벤트
+		(event.keyCode == 13) && switchInput(this);
+	});
+}
+</script>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

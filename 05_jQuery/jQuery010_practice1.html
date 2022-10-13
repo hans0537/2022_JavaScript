@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>jQuery DOM연습</title>
+<style>
+	table {width: 500px;}
+	table, th, td{
+		border: 1px solid black;
+		border-collapse: collapse;
+		padding: 5px;
+		font-size: 1.2em;
+	}
+	th {width: 50%;}
+	th, td {
+		padding: 10px;
+	}
+	td{
+		background-color: orange;
+	}
+	
+	span, input{
+		display: inline-block; 
+		width: 100%;
+		font-size: 1.2em;
+		padding: 2px;
+		margin: 0;
+	}
+	
+	#table1 input {
+		border: none;
+		display: none;
+	}
+	</style>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+//Js009_DOM5_practice1.html의 동작을 jQuery 로 작성해보세요.
+
+$(document).ready(function(){
+	$("#table1 span").each(function(){
+		$(this).click(function(){
+			let txt = $(this).text().trim();
+			// $(this).css("display", "none");
+			$(this).hide();
+			let input = $(this).next();
+			// input.css("display", "block");
+			input.show().val(txt).focus();
+		});
+	});
+	
+	function changeText(e){
+		let txt = $(e).val().trim();
+		$(e).hide();
+		let span = $(e).prev();
+		span.show();
+		span.text(txt);
+	}
+
+	$("#table1 input").each(function(){
+		$(this).focusout(function(){changeText(this);});
+
+		$(this).keyup(function(event){
+			(event.keyCode == 13) && changeText(this);
+		});
+	});
+/*
+	$("#table1").find("span")
+	.click(function(){
+		$(this).hide();
+		$(this).siblings("input").show().val($(this).text()).focus();
+	})
+
+	$("#table1").find("input")
+	.keyup(function(event){
+		if(event.keyCode == 13){			
+			$(this).hide();
+			$(this).siblings("span").show().text($(this).val());			
+		}
+	})
+	.focusout(function(){
+		$(this).hide();
+		$(this).siblings("span").show().text($(this).val());
+	})
+*/
+});
+
+</script>
+
+<body>
+	<table id="table1">
+		<tr>
+			<th>이름</th>
+			<th>아이디</th>
+		</tr>
+		<tr>
+			<td>
+				<span>홍길동</span>
+				<input type="text">
+			</td>
+			<td>
+				<span>Mr.Hong</span>
+				<input type="text">
+			</td>
+		</tr>
+	</table>	
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

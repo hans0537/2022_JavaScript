@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RWD 연습</title>
+
+<style>
+/* TODO */
+* {box-sizing: border-box;}
+
+.container {
+	width: 90vw;
+	height: 85vh;
+}
+
+.header {text-align: center;}
+.header::after {content: "Mobile";}
+
+[class*="area-"] {
+	padding: 5px;
+	font-size: 20px;
+	float: left;
+}
+
+.box {
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+/* Mobile : ~600 */
+.area-A {display: none;}
+.area-B, .area-C, .area-E, .area-F, .area-G, .area-H {height: 16.66%;}
+.area-D {height: 33.33%;}
+
+.m-4 {width: 33.33%;}
+.m-12 {width: 100%;}
+
+.area-A .box {background-color: lightblue;}
+.area-B .box {background-color: lightcoral;}
+.area-C .box {background-color: lightcyan;}
+.area-D .box {border: 2px solid gray;}
+.area-E .box {background-color: lightskyblue;}
+.area-F .box {background-color: lightgreen;}
+.area-G .box {background-color: lightslategray;}
+.area-H .box {background-color: yellow;}
+
+.m-4 .box::after {content: "4";}
+.m-12 .box::after {content: "12";}
+
+/* Tablet : 600 ~ 768 */
+@media only screen and (min-width: 600px){
+	.header::after {content: "Tablet";}
+
+	.area-A {display: block; height: 16.66%;}
+	.area-C, .area-D {height: 50%;}
+	.area-E, .area-F {height: 25%;}
+
+	.t-2 {width: 16.66%;}
+	.t-3 {width: 25%;}
+	.t-8 {width: 66.66%;}
+	.t-9 {width: 75%;}
+	.t-10 {width: 83.33%;}
+
+	.t-2 .box::after {content: "2";}
+	.t-3 .box::after {content: "3";}
+	.t-8 .box::after {content: "8";}
+	.t-9 .box::after {content: "9";}
+	.t-10 .box::after {content: "10";}
+}
+
+/* PC : 768 ~ */
+@media only screen and (min-width: 768px){
+	.header::after {content: "PC";}
+
+	.area-C, .area-D {height: 50%;}
+	.area-E, .area-F, .area-G {height: 16.66%;}
+
+	.p-2 {width: 16.66%;}
+	.p-4 {width: 33.33%;}
+	.p-6 {width: 50%;}
+	.p-8 {width: 66.66%;}
+	.p-12 {width: 100%;}
+
+	.p-2 .box::after {content: "2";}
+	.p-4 .box::after {content: "4";}
+	.p-6 .box::after {content: "6";}
+	.p-8 .box::after {content: "8";}
+	.p-12 .box::after {content: "12";}
+}
+
+</style>
+    
+</head>
+<body>
+	
+	<div class="container">
+		<h1 class="header"></h1>
+		<div class="area-A t-2 p-4">
+			<div class="box">A:</div>
+		</div>
+		<div class="area-B m-12 t-10 p-8">
+			<div class="box">B:</div>
+		</div>
+		<div class="area-C m-12 t-2 p-2">
+			<div class="box">C:</div>
+		</div>
+		<div class="area-D m-12 t-8 p-6">
+			<div class="box">D:</div>
+		</div>
+		<div class="area-E m-4 t-2 p-4">
+			<div class="box">E:</div>
+		</div>
+		<div class="area-F m-4 t-2 p-4">
+			<div class="box">F:</div>
+		</div>
+		<div class="area-G m-4 t-3 p-4">
+			<div class="box">G:</div>
+		</div>
+		<div class="area-H m-12 t-9 p-12">
+			<div class="box">H:</div>
+		</div>
+	</div>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

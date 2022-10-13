@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<html>
+<head>
+<meta charset=utf-8>
+<title>table 연습</title>
+<style>
+	div table {width: 500px; height: 150px;}
+	
+	div table, th, td {
+		border: 1px solid black;  /* 두께, 선종류, 선색상 */
+		border-collapse: collapse; /* border 붙이기 */
+	}
+	
+	div th, td {
+		padding: 15px;	/* 셀 안쪽의 컨텐트와 border 사이 여백 */
+	}
+	
+	div .table4 {
+		width: 100px; height: 100px;
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+</style>
+</head>
+<body>
+	<div>
+		<h3>1. 테이블</h3>
+		<table>
+			<tr>
+				<td colspan="3" rowspan="3" style="width: 20px;"></td>
+				<td colspan="3"></td>
+			</tr>
+			<tr>
+				<td colspan="3"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	
+		<hr>
+		
+		<h3>2. 테이블</h3>
+		<table>
+			<tr>
+				<td colspan="2" rowspan="3" style="width: 20px;"></td>
+				<td colspan="3"></td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+		
+		<hr>
+		
+		<h3>3. 테이블</h3>
+		<table>
+			<tr>
+				<td colspan="2" style="width: 20px;"></td>
+				<td colspan="2" rowspan="2"></td>
+				<td rowspan="3"></td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+			</tr>
+			<tr>
+				<td colspan="2"></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+
+	<hr>
+	<h2>예제4</h2>
+	<table class="test" border="0" cellispacing="100">
+		<thead>
+			<colgroup>
+				<col style="width:7%">
+				<col style="width:10%">
+				<col style="width:10%">
+				<col style="width:25%">
+				<col style="width:15%">
+				<col style="width:15%">
+				<col style="width:2%">
+			</colgroup>
+		</thead>
+		<tbody>
+		  <tr>
+			<td colspan="2" style="background-color: lightgray;">1</td>
+			<td colspan="2" style="background-color: rgb(248, 245, 242);">3</td>
+			<td colspan="2" style="background-color: yellow;">5</td>
+			<td rowspan="4" style="background-color: lightgray;">7</td>
+		  </tr>
+		
+		  
+		  <tr>
+			<td>8</td>
+			<td colspan="3" rowspan="2" style="background-color: red;">9</td>
+			<td colspan="2" style="background-color: yellow;">12</td>
+		  </tr>
+		  <tr>
+			<td rowspan="2" style="background-color: lightgray;">15</td>
+			<td>19</td>
+			<td>20</td>
+		  </tr>
+		  <tr>
+			<td rowspan="2" colspan="2" style="background-color: black;">23</td>
+			<td style="background-color: lightgray;">25</td>
+			<td colspan="2">26</td>
+		  </tr>
+		  <tr>
+			<td style="background-color: yellow;">29</td>
+			<td style="background-color: lightgray;">32</td>
+			<td colspan="2" style="background-color: blue;">33</td>
+			<td style="background-color: red;">35</td>
+		  </tr>
+		</tbody>
+	</table>
+
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	</body>
+</html>

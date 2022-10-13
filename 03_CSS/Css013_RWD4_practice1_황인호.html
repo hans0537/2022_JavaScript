@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RWD 연습</title>
+
+<style>
+
+/* Mobile first */
+*{
+	box-sizing: border-box;	
+}
+
+[class*="col-"]{
+	float: left;
+	padding: 15px;
+	margin: 10px;
+	
+}	
+	#A{display: none;}
+	#D{border : 1px solid #333 }
+	/* .col-m-1 {width: 8.33%; }  1칸 짜리 폭 */
+	/* .col-m-2 {width: 16.66%; }  2칸 짜리 폭 */
+	/* .col-m-3 {width: 25%;}
+	.col-m-4 {width: 33.33%;}
+	.col-m-5 {width: 41.66%;}
+	.col-m-6 {width: 50%;}
+	.col-m-7 {width: 58.33%;}
+	.col-m-8 {width: 66.66%;}
+	.col-m-9 {width: 75%;}
+	.col-m-10 {width: 83.33%;}
+	.col-m-11 {width: 91.66%;}
+	.col-m-12 {width: 100%;} */
+
+	.col-m-1 {width: 7%; }  /* 1칸 짜리 폭 */
+	.col-m-2 {width: 14%; }  /* 2칸 짜리 폭 */
+	.col-m-3 {width: 21%;}
+	.col-m-4 {width: 29.2%;}
+	.col-m-5 {width: 39%;}
+	.col-m-6 {width: 46%;}
+	.col-m-7 {width: 53%;}
+	.col-m-8 {width: 60%;}
+	.col-m-9 {width: 75%;}
+	.col-m-10 {width: 83%;}
+	.col-m-11 {width: 91%;}
+	.col-m-12 {width: 96%;}
+
+
+	.col-m-1::after{content: "1";}
+	.col-m-2::after{content: "2";}
+	.col-m-3::after{content: "3";}
+	.col-m-4::after{content: "4";}
+	.col-m-5::after{content: "5";}
+	.col-m-6::after{content: "6";}
+	.col-m-7::after{content: "7";}
+	.col-m-8::after{content: "8";}
+	.col-m-9::after{content: "9";}
+	.col-m-10::after{content: "10";}
+	.col-m-11::after{content: "11";}
+	.col-m-12::after{content: "12";}
+
+	#A, #B{	
+		text-align: center;		
+		height: 60px;
+		color: white;
+	}
+	#C{height: 50px;}
+	#D{height: 250px;}
+
+	
+
+	/* Tablet */
+	@media only screen and (min-width:600px){
+		#A{display: block;}
+		
+
+		.col-t-1 {width: 7%; }  /*1칸 짜리 폭 */
+		.col-t-2 {width: 12.9%; }  /*2칸 짜리 폭*/
+		.col-t-3 {width: 21%;}
+		.col-t-4 {width: 33%;}
+		.col-t-5 {width: 41%;}
+		.col-t-6 {width: 50%;}
+		.col-t-7 {width: 58%;}
+		.col-t-8 {width: 60.4%;}
+		.col-t-9 {width: 68.7%;}
+		.col-t-10 {width: 76%;}
+		.col-t-11 {width: 91%;}
+		.col-t-12 {width: 100%;} 
+
+		.col-t-1::after{content: "1";}
+		.col-t-2::after{content: "2";}
+		.col-t-3::after{content: "3";}
+		.col-t-4::after{content: "4";}
+		.col-t-5::after{content: "5";}
+		.col-t-6::after{content: "6";}
+		.col-t-7::after{content: "7";}
+		.col-t-8::after{content: "8";}
+		.col-t-9::after{content: "9";}
+		.col-t-10::after{content: "10";}
+		.col-t-11::after{content: "11";}
+		.col-t-12::after{content: "12";}
+
+
+		#C{height: 250px;}
+		#E{height: 115px;}
+		#F{height: 114px;}
+		
+	}
+
+		
+	/* PC */
+	@media only screen and (min-width:768px){
+		#A{display: block;}
+
+		.col-1 {width: 8.33%; }  /* 1칸 짜리 폭 */
+		.col-2 {width: 16.66%; }  /* 2칸 짜리 폭 */
+		.col-3 {width: 18%;}
+		.col-4 {width: 22%;}
+		.col-5 {width: 41.66%;}
+		.col-6 {width: 52.5%;}
+		.col-7 {width: 58.33%;}
+		.col-8 {width: 71%;}
+		.col-9 {width: 75%;}
+		.col-10 {width: 83.33%;}
+		.col-11 {width: 91.66%;}
+		.col-12 {width: 94.7%;}
+
+		.col-1::after{content: "1";}
+		.col-2::after{content: "2";}
+		.col-3::after{content: "3";}
+		.col-4::after{content: "4";}
+		.col-5::after{content: "5";}
+		.col-6::after{content: "6";}
+		.col-7::after{content: "7";}
+		.col-8::after{content: "8";}
+		.col-9::after{content: "9";}
+		.col-10::after{content: "10";}
+		.col-11::after{content: "11";}
+		.col-12::after{content: "12";}
+
+		#E{height: 72px;}
+		#F{height: 72px;}
+		#G{height: 69px;}
+
+
+		}
+
+</style>
+    
+</head>
+<body>
+	<div class="col-t-2 col-4" style="background-color: rgb(207, 190, 253);" id="A">A:</div>
+	<div class="col-m-12 col-t-10 col-8" style="background-color: rgb(150, 15, 240);" id="B">B:</div>
+	<div class="col-m-12 col-t-2 col-2" style="background-color: cyan;" id="C">C:</div>
+	<div class="col-m-12 col-t-8 col-6" id = "D">D:</div>		
+	<div class="col-m-4 col-t-2 col-4" style="background-color: rgb(243, 229, 208);" id="E">E:</div>
+	<div class="col-m-4 col-t-2 col-4" style="background-color: rgb(90, 187, 163);" id="F">F:</div>
+	<div class="col-m-4 col-t-3 col-4" style="background-color: rgb(243, 192, 172)" id="G">G:</div>		
+	
+
+	<div class="col-m-12 col-t-9 col-12" style="background-color: rgb(235, 234, 198)">H:</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

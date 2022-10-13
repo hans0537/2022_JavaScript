@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>AJAX API서울시 지하철 역사마스터정보</title>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+</head>
+<!--
+■서울시 지하철 역사마스터 정보
+http://data.seoul.go.kr/dataList/OA-21232/S/1/datasetView.do
+
+샘플url
+
+XML 버젼
+http://openapi.seoul.go.kr:8088/(인증키)/xml/subwayStationMaster/1/5/
+예] http://openapi.seoul.go.kr:8088/4d46796d7366726f3833774a774955/xml/subwayStationMaster/1/5/
+
+
+JSON 버젼
+http://openapi.seoul.go.kr:8088/(인증키)/json/subwayStationMaster/1/5/
+예] http://openapi.seoul.go.kr:8088/4d46796d7366726f3833774a774955/json/subwayStationMaster/1/5/
+ -->
+<body>
+<h1>서울시 역사 마스터 정보</h1>
+<form>
+start: <input type="number" id="start" value="1"/><br>
+end: <input type="number" id="end" value="5"/><br>
+
+<button type="button" onclick="loadData()">역사정보 가져오기</button>
+<button type="button" onclick="removeTable()">지우기</button>
+</form>
+<br><br>
+<h2>AJAX + XML</h2>
+<table id="demoXML"></table>
+<hr>
+<h2>AJAX + JSON</h2>
+<table id="demoJSON"></table>
+
+
+<script>
+var api_key = "6c5442734468616e3731537451514a";
+
+
+function removeTable(){
+	let xml = document.getElementById('demoXML');
+
+	for(let i = xml.childNodes.length - 1; i >= 0; i--){
+		xml.removeChild(xml.childNodes[i]);
+	}
+	
+	let json = document.getElementById('demoJSON');
+	
+	for(let i = json.childNodes.length - 1; i >= 0; i--){
+		json.removeChild(json.childNodes[i]);
+	}
+}
+
+function loadData() {
+	let start = document.getElementById('start').value;
+	let end = document.getElementById('end').value;
+
+	let url, xhttp;
+
+	//XML
+	url = `http://openapi.seoul.go.kr:8088/${api_key}/xml/subwayStationMaster/${start}/${end}/`;
+
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			parseXML(this.responseXML);  // => DOM 객체
+		}
+	};
+	xhttp.open("GET", url, true);
+	xhttp.send();
+
+
+	//JSON
+	url = `http://openapi.seoul.go.kr:8088/${api_key}/json/subwayStationMaster/${start}/${end}/`;
+
+	xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function(){
+		if(this.readyState == 4 && this.status == 200){
+			let jsonObj = JSON.parse(this.responseText);
+			parseJSON(jsonObj);
+		}
+	};
+	xhttp.open("GET", url, true);
+	xhttp.send();
+
+
+}
+
+function parseXML(xmlDOM) {
+
+	const table = [];
+	table.push("<tr><th>역명</th><th>아이디</th><th>호선</th><th>위도</th><th>경도</th></tr>");
+	
+	for(row of xmlDOM.getElementsByTagName("row")){
+		table.push(`
+			<tr>
+				<td>${row.getElementsByTagName("STATN_NM")[0].childNodes[0].nodeValue}</td>
+				<td>${row.getElementsByTagName("STATN_ID")[0].childNodes[0].nodeValue}</td>
+				<td>${row.getElementsByTagName("ROUTE")[0].childNodes[0].nodeValue}</td>
+				<td>${row.getElementsByTagName("CRDNT_X")[0].childNodes[0].nodeValue}</td>
+				<td>${row.getElementsByTagName("CRDNT_Y")[0].childNodes[0].nodeValue}</td>
+			</tr>
+		`);
+	}
+
+	document.getElementById('demoXML').innerHTML = table.join('\n');
+	
+}
+
+function parseJSON(jsonObj){
+
+	const table = [];
+	table.push("<tr><th>역명</th><th>아이디</th><th>호선</th><th>위도</th><th>경도</th></tr>");
+	for(row of jsonObj.subwayStationMaster.row){
+		table.push(`
+		<tr>
+			<td>${row.STATN_NM}</td>
+			<td>${row.STATN_ID}</td>
+			<td>${row.ROUTE}</td>
+			<td>${row.CRDNT_X}</td>
+			<td>${row.CRDNT_Y}</td>
+		</tr>
+		`);
+	}
+	
+	document.getElementById('demoJSON').innerHTML = table.join('\n');
+}
+</script>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Google Maps - Overlays</title>
+</head>
+<!-- 
+Marker - Single locations on a map. Markers can also display custom icon images
+Polyline - Series of straight lines on a map
+Polygon - Series of straight lines on a map, and the shape is "closed"
+Circle and Rectangle
+Info Windows - Displays content within a popup balloon on top of a map
+Custom overlays
+ -->
+<body>
+<h1>Overlays</h1>
+
+<!-- Map Container 와 크기 지정 -->
+<div id="googleMap" style="width:100%;height:400px;"></div>
+
+<script>
+function myMap() {
+    // 구글맵의 property 들을 지정
+    let  mapProp = {
+        // center: 지도 표현 중심좌표
+        center: new google.maps.LatLng(37.556228, 126.972135),
+
+        // zoom level
+        zoom: 17,
+    };
+    let map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
+
+	// 마커 지정
+	let myPos1 = {lat: 37.556228, lng: 126.972135};
+	let marker1 = new google.maps.Marker({position: myPos1});
+	marker1.setMap(map);
+	
+	// 애니메이션 마커
+	let myPos2 = {lat: 37.555228, lng: 126.973135};
+	let marker2 = new google.maps.Marker({
+		position: myPos2,
+		animation: google.maps.Animation.BOUNCE,
+	});
+	marker2.setMap(map);
+	
+	// marker 에 InfoWindow 띄우기
+	let myPos3 = {lat: 37.557228, lng: 126.971135};
+	let marker3 = new google.maps.Marker({position: myPos3});
+	marker3.setMap(map);
+	
+	let infowindow = new google.maps.InfoWindow({
+		content: "이지역 맛집",
+	})
+	//				지도, 해당위치
+	infowindow.open(map, marker3);
+
+	// icon 띄우기
+	let myPos4 = {lat: 37.556828, lng: 126.972235};
+	let marker4 = new google.maps.Marker({
+		position: myPos4,
+		icon: "../img/pinkball.png"
+	});
+	marker4.setMap(map);
+}
+
+</script>
+
+<!-- ↓key=API키, callback=함수 지정 -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyARZDbkHT90Ja2hJFyjb5NMHivjXyCjfDg&callback=myMap"></script>
+
+</body>
+</html>

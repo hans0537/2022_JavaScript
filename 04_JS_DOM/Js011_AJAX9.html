@@ -1,0 +1,142 @@
+<!--
+■ 영화진흥위원회 : 일별 박스 오피스
+http://www.kobis.or.kr/kobisopenapi/homepg/apiservice/searchServiceInfo.do
+ 
+http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml  (XML)
+http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json  (JSON)
+    key : (발급키)
+    targetDt : (날짜yyyyMMdd)
+    multiMovieYn : 영화구분,  "Y" : 다양성 영화 "N" : 상업영화 (default : 전체)
+    repNationCd : 국내국외영화구분, "K": 한국영화 "F" : 외국영화 (default : 전체)
+    itemPerPage : 결과 row 의 개수 (default : "10", 최대 : "10")
+   
+샘플url
+ 
+XML 버젼
+http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.xml?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101
+ 
+JSON 버젼
+http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=f5eef3421c602c6cb7ea224104795888&targetDt=20120101
+ 
+-->
+ 
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>일별박스오피스 - 영화진흥위원회</title>
+<style>
+table,th,td {
+  border : 1px solid black;
+  border-collapse: collapse;
+}
+th,td {
+  padding: 5px;
+}
+</style>
+</head>
+<body>
+    <h1>일별박스오피스</h1>
+
+    <form name="frm">
+        날짜: <input type="date" id="date" placeholder="연도-월-일"/><br>
+        영화구분: <select id="multiMovieYn">
+                    <option value="">전체</option>
+                    <option value="Y">다양성 영화</option>
+                    <option value="N">상업영화</option>
+                </select><br>
+        국내국외영화구분 : <select id="repNationCd">
+                            <option value="">전체</option>
+                            <option value="K">한국영화</option>
+                            <option value="F">외국영화</option>
+                        </select><br>
+        출력ROW : <input type="number" value="10" name="itemPerPage"><br>
+        <br><br>
+        
+        <button type="button" onclick="loadData()">정보 가져오기</button>
+        <button type="button" onclick="removeTable()">지우기</button>
+    </form>
+    
+    <hr>
+    <h2>검색결과</h2>
+    <table id="demoJSON"></table>
+    
+    
+    <script>
+    var api_key = "9acf67875889f8c9a1f614d0d3457e85";
+    var req_url = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json";
+    
+    function removeTable(){
+        document.getElementById('demoJSON').removeChild(document.getElementById('demoJSON').childNodes[0]);
+    }
+    
+    function loadData() {
+        // 유효성 검사
+        // 날짜
+        let date = frm.date.value.trim();
+        let datePat = /^\d{4}-(0\d|1[0-2])-(0[1-9]|[12]\d|[3][01])$/;
+    
+        if(!datePat.test(date)){
+            alert("날짜포맷이 맞지 않습니다.");
+            frm.date.focus();
+            return;
+        }
+
+        // 유효성 체크후 url 형식으로 변환
+        let targetDt = date.replaceAll('-','');
+    
+        // 출력 ROW 
+        let itemPerPage = frm.itemPerPage.value.trim();
+        if(isNaN(itemPerPage) || itemPerPage < 1 || itemPerPage > 10){
+            alert("출력ROW는 1~10 사이의 정수이어야 합니다");
+            frm.itemPerPage.focus();
+            return;
+        }
+        
+        // 셀렉트 값 가져오기
+        // 영화구분
+        let val1 = document.getElementById("multiMovieYn");
+        let multiMovieYn = val1.options[val1.selectedIndex].value;
+        
+        // 국내외영화
+        let val2 = document.getElementById("repNationCd");
+        let repNationCd = val2.options[val2.selectedIndex].value;
+
+        // JSON
+        let url = `${req_url}?key=${api_key}`
+                + `&targetDt=${targetDt}`
+                + `&itemPerPage=${itemPerPage}`
+                + `&multiMovieYn=${multiMovieYn}`
+                + `&repNationCd=${repNationCd}`;
+    
+        let xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function(){
+            if(this.readyState == 4 && this.status == 200){
+                parseJSON(JSON.parse(this.responseText));
+            }
+        }
+        
+        xhttp.open("GET", url, true);
+        xhttp.send();
+    }
+    
+    function parseJSON(jsonObj){
+    
+        let table = [];
+        table.push("<tr><th>순위</th><th>영화명</th><th>누적관객수</th><th>전일대비순위증감</th></tr>");
+    
+        for(e of jsonObj.boxOfficeResult.dailyBoxOfficeList){
+            table.push("<tr>");
+            table.push(`<td>${e.rank}</td>`);
+            table.push(`<td>${e.movieNm}</td>`);
+            table.push(`<td>${e.audiAcc}</td>`);
+            table.push(`<td>${e.rankInten}</td>`);
+            table.push("</tr>");
+        }
+        document.getElementById('demoJSON').innerHTML = table.join('\n');
+    }
+    </script>
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </body>
+    </html>

@@ -1,0 +1,47 @@
+@charset "UTF-8";
+* {box-sizing: border-box;}
+body {margin: 0; }
+.column img{width: 100%;}
+.header{text-align: center; padding: 32px;}
+
+.row{
+	/* content 에 관계 없이 
+	flexible 아이템들을 
+	동일한 length 로 맞춘다*/
+	display: flex;
+	
+	/* flexible 아이템들이 wrap 될것인지 여부
+		wrap / nowrap */
+
+	flex-wrap: wrap;
+}
+
+.column {
+	flex: 25%;
+	max-width: 25%;
+	padding: 0 4px;
+}
+
+.column img{
+	margin-top: 8px;
+	vertical-align: middle;
+}
+
+
+
+@media (max-width: 800px){ /*  ~ 800 */
+	.column {
+		flex: 50%;
+		max-width: 50%;
+	}
+} 
+
+@media (max-width: 600px){  /* ~ 600 */
+	.column {
+		flex: 100%;
+		max-width: 100%;
+	}
+}
+
+
+

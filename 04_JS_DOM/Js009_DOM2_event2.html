@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>DOM bubble/capture</title>
+</head>
+<style>
+ul, li {padding: 5px;margin: 3px; box-shadow: 1px 1px 1px 1px gray;}
+ul{background-color: pink;}
+li{background-color: cyan;}
+</style>
+<!-- 
+element.addEventListener("이벤트", 함수, useCapture)
+
+https://javascript.info/bubbling-and-capturing
+
+
+window.event 객세 사용
+	event.stopPropagation();
+
+
+-->
+<body>
+<ul>
+  <li onclick="show(this)">Coffee</li>
+  <li onclick="show(this)">Tea
+    <ul>
+      <li onclick="event.stopPropagation(); show(this)">Black tea</li>
+      <li onclick="show(this)">Green tea</li>
+    </ul>
+  </li>
+  <li>Milk</li>
+</ul>
+
+<script>
+
+  function show(e) {
+    // text 만 팝업 띄우기 (innerHTML 과는 다름)
+    alert(e.childNodes[0].nodeValue);
+  }
+
+</script>
+
+<br>
+<ul id="ad">
+  <li>커피</li>
+  <li>차
+    <ul>
+      <li>홍차</li>
+      <li>녹차</li>
+    </ul>
+  </li>
+  <li>우유</li>
+</ul>
+
+<script>
+
+  let li = document.querySelectorAll("ul#ad li");
+
+  for(e of li){
+    // e.addEventListener("click", function() {show(this)}) => bubbling 
+   
+    e.addEventListener("click", function() {show(this)}, true); // => capturing
+
+  }
+</script>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
